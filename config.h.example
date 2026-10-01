@@ -1,0 +1,34 @@
+// config.h.example - copy this file to config.h and fill in your own values.
+// config.h is .gitignore'd so your secrets never leave your machine.
+
+#pragma once
+
+// --- WiFi -------------------------------------------------------------------
+#define WIFI_SSID      "your-wifi-ssid"
+#define WIFI_PASSWORD  "your-wifi-password"
+
+// --- Static IP (skips DHCP, saves ~1-2 s of awake time per wake) -------------
+// Pick an address OUTSIDE your router's DHCP pool. Set USE_STATIC_IP to 0 to
+// fall back to DHCP.
+#define USE_STATIC_IP  1
+#define STATIC_IP      192, 168, 1, 150
+#define STATIC_GATEWAY 192, 168, 1, 1
+#define STATIC_SUBNET  255, 255, 255, 0
+#define STATIC_DNS     192, 168, 1, 1
+
+// --- MQTT broker ------------------------------------------------------------
+// If the broker is a hostname, the DNS lookup costs awake time; a plain IP
+// (e.g. "192.168.1.10") is faster.
+#define MQTT_HOST       "broker.hivemq.com"
+#define MQTT_PORT       1883
+#define MQTT_CLIENT_ID  "fluidwire-esp8266-sleeper"
+#define MQTT_USER       ""        // leave blank for anonymous brokers
+#define MQTT_PASSWORD   ""
+#define MQTT_TOPIC      "fluidwire/demo/sleeper"
+
+// --- Sleep + battery --------------------------------------------------------
+#define SLEEP_SECONDS   300       // time between readings
+// Voltage divider on A0 (NodeMCU already has 220k/100k on board -> ratio 3.2;
+// a bare Wemos D1 mini has 220k/100k too; add 100k from the battery to A0 on
+// bare chips). Set the real ratio = (R1+R2)/R2 of YOUR divider.
+#define BATT_DIVIDER_RATIO 4.2f   // e.g. 330k + 100k external on a D1 mini
